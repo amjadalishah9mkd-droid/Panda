@@ -1,28 +1,262 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap");
+
 :root {
-  color-scheme: light;
-  --ink: #16181d;
-  --muted: #5c6270;
-  --line: #e4e6eb;
-  --surface: #ffffff;
-  --bg: #f6f7f9;
-  --accent: #2f6df6;
+  color-scheme: dark;
+
+  /* Color: mineral neutrals with one restrained warm-metal accent. */
+  --color-background: #090b0c;
+  --color-background-elevated: #0d0f11;
+  --color-surface: #111416;
+  --color-surface-raised: #15191c;
+  --color-surface-hover: #1a1e21;
+  --color-text-primary: #f2efe9;
+  --color-text-secondary: #b8b5ae;
+  --color-text-muted: #777975;
+  --color-border: rgb(242 239 233 / 12%);
+  --color-border-strong: rgb(242 239 233 / 22%);
+  --color-accent: #d59a68;
+  --color-accent-hover: #e7ad7b;
+  --color-accent-soft: rgb(213 154 104 / 12%);
+  --color-focus-ring: rgb(213 154 104 / 48%);
+  --color-selection: rgb(213 154 104 / 28%);
+
+  /* Typography: expressive geometric sans paired with technical mono. */
+  --font-display: "Manrope", sans-serif;
+  --font-technical: "IBM Plex Mono", monospace;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --text-display-size: clamp(3.5rem, 9vw, 8.75rem);
+  --text-display-line-height: 0.92;
+  --text-display-letter-spacing: -0.065em;
+
+  --text-section-size: clamp(2.25rem, 5vw, 5rem);
+  --text-section-line-height: 1;
+  --text-section-letter-spacing: -0.045em;
+
+  --text-subheading-size: clamp(1.25rem, 2vw, 1.75rem);
+  --text-subheading-line-height: 1.3;
+  --text-subheading-letter-spacing: -0.025em;
+
+  --text-body-size: clamp(1rem, 1.2vw, 1.125rem);
+  --text-body-line-height: 1.7;
+  --text-body-letter-spacing: -0.012em;
+
+  --text-label-size: 0.6875rem;
+  --text-label-line-height: 1.4;
+  --text-label-letter-spacing: 0.14em;
+
+  --text-navigation-size: 0.8125rem;
+  --text-navigation-line-height: 1.4;
+  --text-navigation-letter-spacing: 0.025em;
+
+  --text-metadata-size: 0.6875rem;
+  --text-metadata-line-height: 1.5;
+  --text-metadata-letter-spacing: 0.055em;
+
+  /* Spacing: a 4px base with generous section rhythm. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-section: clamp(6rem, 12vw, 12rem);
+  --space-page-inline: clamp(1.25rem, 4vw, 4.5rem);
+
+  /* Geometry: mostly square forms with restrained corner softening. */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-pill: 999px;
+  --border-hairline: 1px solid var(--color-border);
+
+  /* Depth: broad, low-opacity shadows rather than visible glow. */
+  --shadow-surface: 0 1px 0 rgb(255 255 255 / 4%) inset,
+    0 18px 50px rgb(0 0 0 / 24%);
+  --shadow-raised: 0 1px 0 rgb(255 255 255 / 5%) inset,
+    0 28px 80px rgb(0 0 0 / 36%);
+  --shadow-accent: 0 16px 44px rgb(213 154 104 / 10%);
+
+  /* Layout. */
+  --content-width: 90rem;
+  --content-width-narrow: 48rem;
+  --content-width-reading: 40rem;
+
+  /* Interaction: quiet and responsive, with no elastic spectacle. */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 160ms;
+  --duration-base: 320ms;
+  --duration-slow: 640ms;
+
+  /*
+   * Future 3D direction: graphite materials, warm-white key lighting, and the
+   * accent used only for controlled highlights. Depth must support hierarchy;
+   * objects should move smoothly, remain layout-aware, and never obscure copy.
+   */
+  --material-dark: #15181a;
+  --material-mid: #2a2d2e;
+  --material-light: #d8d5cf;
+  --light-key: #f4eee5;
+  --light-fill: #77736e;
+  --light-accent: var(--color-accent);
+  --depth-near: 1.08;
+  --depth-mid: 1;
+  --depth-far: 0.94;
+
+  /* Compatibility aliases for the current starter UI. */
+  --bg: var(--color-background);
+  --surface: var(--color-surface);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --line: var(--color-border);
+  --accent: var(--color-accent);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  min-width: 20rem;
+  background: var(--color-background);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
 }
 
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+  background-color: var(--color-background);
+  background-image: linear-gradient(
+    145deg,
+    rgb(213 154 104 / 3.5%) 0%,
+    transparent 28rem
+  );
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+  letter-spacing: var(--text-body-letter-spacing);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-selection);
+  color: var(--color-text-primary);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+button,
+input,
+textarea,
+select {
+  color: inherit;
+  font: inherit;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+.type-display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-display-line-height);
+  letter-spacing: var(--text-display-letter-spacing);
+}
+
+.type-section {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-section-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-section-line-height);
+  letter-spacing: var(--text-section-letter-spacing);
+}
+
+.type-subheading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-subheading-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-subheading-line-height);
+  letter-spacing: var(--text-subheading-letter-spacing);
+}
+
+.type-body {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-body-line-height);
+  letter-spacing: var(--text-body-letter-spacing);
+}
+
+.type-label {
+  margin: 0;
+  font-family: var(--font-technical);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-line-height);
+  letter-spacing: var(--text-label-letter-spacing);
+  text-transform: uppercase;
+}
+
+.type-navigation {
+  font-family: var(--font-display);
+  font-size: var(--text-navigation-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-navigation-line-height);
+  letter-spacing: var(--text-navigation-letter-spacing);
+}
+
+.type-metadata {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-technical);
+  font-size: var(--text-metadata-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-metadata-line-height);
+  letter-spacing: var(--text-metadata-letter-spacing);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
